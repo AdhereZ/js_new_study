@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function myNew(fn, ...arg) {
+            let obj1 = {}
+            if (fn.prototype)
+                obj1.__proto__ = fn.prototype
+
+            let res = fn.apply(obj1, arg)
+            if (res && (typeof res == 'function' || typeof res == 'object'))
+                return res
+            return obj1
+        }
+
+        function a(name, age, height) {
+            this.name = name
+            this.age = age
+            this.height = height
+        }
+        a.prototype.sayHi = () => {
+            console.log('my name is Li Hua');
+        }
+        let p = myNew(a, 'giegie', 18, 180)
+        console.log(p);
+        p.sayHi()
+    </script>
+</body>
+
+</html>
